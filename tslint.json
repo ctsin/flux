@@ -1,0 +1,22 @@
+{
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "rules": {
+    "no-unused-expression": [true, "allow-fast-null-checks", "allow-new"],
+    "interface-name": false,
+    "object-literal-sort-keys": false,
+    "member-access": false,
+    "ordered-imports": false,
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "allow-pascal-case",
+      "allow-leading-underscore"
+    ],
+    "jsx-boolean-value": false,
+    "jsx-no-lambda": false,
+    "no-console": false
+  },
+  "linterOptions": {
+    "exclude": ["node_modules"]
+  }
+}
