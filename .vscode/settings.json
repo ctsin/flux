@@ -1,4 +1,3 @@
 {
-  "eslint.enable": false,
   "liveServer.settings.root": "src/"
 }

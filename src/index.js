@@ -5,7 +5,7 @@ const Dispatcher = () => {
       throw new Error('要求 store 参数，且需配备 update 方法');
     }
 
-    const consumers = [];
+    let consumers = [];
 
     const change = () => {
       consumers.forEach(consumer => {
@@ -14,8 +14,8 @@ const Dispatcher = () => {
     };
 
     const subscribe = (consumer, noInit = false) => {
-      consumers.push(consumer);
-      !noInit ? consumer(store) : null;
+      consumers = consumers.concat(consumer);
+      !noInit ? consumer.forEach(c => c(store)) : null;
     };
 
     stores.push({ store, change });
@@ -24,8 +24,8 @@ const Dispatcher = () => {
   };
 
   const dispatch = action => {
-    (this.stores || []).forEach(({ store: { update, change } }) => {
-      update(action, change);
+    (stores || []).forEach(({ store, change }) => {
+      store.update(action, change);
     });
   };
 
@@ -50,7 +50,7 @@ const View = (subscribeToStore, increase, decrease) => {
   const render = () => (display.innerHTML = value);
   const updateState = store => (value = store.getValue());
 
-  subscribeToStore(updateState, render);
+  subscribeToStore([updateState, render]);
   increaseBtn.addEventListener('click', increase);
   decreaseBtn.addEventListener('click', decrease);
 };
@@ -61,14 +61,16 @@ const DECREASE = 'DECREASE';
 const counterStore = () => ({
   data: { value: 0 },
   getValue() {
-    this.data.value;
+    return this.data.value;
   },
   update(action, change) {
     switch (action.type) {
       case INCREASE:
         this.data.value += 1;
+        break;
       case DECREASE:
         this.data.value -= 1;
+        break;
       default:
         void null;
     }
