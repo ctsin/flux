@@ -1,7 +1,7 @@
 {
-  "name": "flux",
+  "name": "ft-practice",
   "version": "0.0.1",
-  "description": "Flux 的再实现",
+  "description": "函数式编程练习",
   "private": true,
   "author": "邢贵志",
   "devDependencies": {
